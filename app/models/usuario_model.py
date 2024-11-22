@@ -12,10 +12,10 @@ class Usuario(Base):
     sobrenome = Column(String(100))
     idade = Column(Integer)
     email = Column(String(100))
-    senha = Column(String(100))
+    senha = Column(String(100000))
     admissao = Column(DateTime)
     altura = Column(Float(5))
-    peso = Column(Float(5))
+    peso = Column(Float(6))
 
     def __init__(self, cpf:str, nome: str,sobrenome: str, idade:int, email:str, senha:str, admissao:DateTime, altura:float, peso:float):
         self.cpf = cpf
