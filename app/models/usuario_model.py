@@ -7,11 +7,11 @@ Base = declarative_base()
 class Usuario(Base):
     __tablename__ = "usuarios"
 
-    cpf = Column(String(11), primary_key=True)
+    cpf = Column(String(255), primary_key=True)
     nome = Column(String(100))
     sobrenome = Column(String(100))
     idade = Column(Integer)
-    email = Column(String(100))
+    email = Column(String(100),primary_key=True)
     senha = Column(String(100000))
     admissao = Column(DateTime)
     altura = Column(Float(5))

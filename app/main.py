@@ -1,10 +1,9 @@
-from functions.functions_app import menu_principal, cadastrando_funcionario, verificando_cadastro, editando_dados,desligamento, senha
+from functions.functions_app import menu_principal, cadastrando_funcionario, verificando_cadastro, editando_dados,desligamento, login
 from os import system
 from time import sleep
 
 while True:
     system("cls||clear")
-    print("===Menu Principal===")
     print(menu_principal())
     opcao = input(":")
     match opcao:
@@ -31,6 +30,9 @@ while True:
             print("=== | DEMISSÃO | === ")
             desligamento()
         case '5':
-            senha()
-            sleep(5)
+            system("cls||clear")
+            login()
+            sleep(3)
+        case '6':
+            break
             

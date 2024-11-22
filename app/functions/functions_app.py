@@ -8,6 +8,17 @@ session = Session()
 repository = UsuarioRepository(session)
 service = UsuarioService(repository)
 
+def senha ():
+    senha = input("Senha: ")
+    senha_seg = criptografia(senha)
+    return senha_seg
+
+"""
+def cpf ():
+    cpf = input("CPF: ")
+    cpf_seg = criptografia(cpf)
+    return cpf_seg
+"""    
 def gerar_chave():
     chave = Fernet.generate_key()
     with open("chave.key", "wb") as chave_file:
@@ -19,34 +30,17 @@ def carregar_chave():
         chave = chave_file.read()
     return chave
 
-def criptografia_senha():
-    senha = input("Senha: ")
-    senha_criptografada = cipher.encrypt(senha.encode("utf-8"))
-    return senha_criptografada
+def criptografia(texto):
+    texto_criptografado = cipher.encrypt(texto.encode("utf-8"))
+    return texto_criptografado
 
-def descriptografia_senha(senha):
-    if senha is None:
+def descriptografia(texto):
+    if texto is None:
         raise ValueError("Senha não pode ser None!")
-    
-    if isinstance(senha, str):
-        senha = senha.encode("utf-8")
-
+    if isinstance(texto, str):
+        texto = texto.encode("utf-8")
     try:
-
-        senha_descriptografada = cipher.decrypt(senha).decode("utf-8")
-        return senha_descriptografada
-    except cryptography.fernet.InvalidToken:
-        raise ValueError("Erro: O token criptografado é inválido ou foi corrompido.")
-    except Exception as e:
-        raise ValueError(f"Erro na descriptografia: {e}")
-
-def descriptografia_senha(senha):
-    if senha is None:
-        raise ValueError("Senha não pode ser None!")
-    if isinstance(senha, str):
-        senha = senha.encode("utf-8")
-    try:
-        return cipher.decrypt(senha).decode("utf-8")
+        return cipher.decrypt(texto).decode("utf-8")
     except Exception as e:
         raise ValueError(f"Erro na descriptografia: {e}")
     
@@ -58,21 +52,22 @@ def menu_principal ():
 2 - CHECAR CADASTRO DE FUNCIONARIO
 3 - EDITAR CADASTRO DE FUNCIONARIO
 4 - DEMISSAO DE FUNCIONARIO
-5 - SAIR
+5 - FAZER LOGIN DE FUNCIONARIO
+6 - SAIR
 """  
     return menu
 
 def cadastrando_funcionario():
-    cpf = input("CPF: ")
+    CPF = input("CPF: ")
     nome = input("Nome: ")
     sobrenome = input("Sobrenome: ")
     idade = int(input("Idade: "))
     email = input("E-mail: ")
-    senha = criptografia_senha()
+    Senha = senha()
     admissao = datetime.now()
     altura = float(input("Altura: "))
     peso = float(input("Peso: "))
-    service.criando_usuario(cpf, nome,sobrenome, idade, email, senha, admissao, altura, peso)
+    service.criando_usuario(CPF, nome,sobrenome, idade, email, Senha, admissao, altura, peso)
 
 def verificando_cadastro():
     funcionario1 = int(input("Informe o CPF do funcionario: "))
@@ -121,12 +116,14 @@ def desligamento():
     repository.excluir_usuario(funcionario)
     print("===Demissão efetuada com sucesso===")
     
-def senha ():
-    cpf = input("informe seu CPF: ")
-    funcionario = repository.pesquisar_usuario(cpf)
-    senha = funcionario.senha
-    senha_descrip = descriptografia_senha(senha)
-    return senha_descrip
+def login():
+    cpf = input("CPF: ")
+    senha = input("Senha: ")
+    funcionario =repository.pesquisar_usuario(cpf)
+    if funcionario and senha == descriptografia(funcionario.senha):
+        print("===Login efetuado com sucesso===")
+    else:
+        print("===Login ou senha incorretos===")
     
 chave = carregar_chave()  
 cipher = Fernet(chave)
