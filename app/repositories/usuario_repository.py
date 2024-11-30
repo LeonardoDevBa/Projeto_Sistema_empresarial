@@ -1,4 +1,4 @@
-from models.usuario_model import Usuario
+from models.usuario_model import Usuario, Empresa
 from sqlalchemy.orm import Session
 
 class UsuarioRepository:
@@ -23,3 +23,6 @@ class UsuarioRepository:
     
     def lista_usuarios(self):
         return self.session.query(Usuario).all()
+    
+    def pesquisar_empresa(self, email: str):
+        return self.session.query(Empresa).filter_by(email=email).first()
