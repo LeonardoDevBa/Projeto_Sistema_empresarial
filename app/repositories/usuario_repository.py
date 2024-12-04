@@ -24,5 +24,5 @@ class UsuarioRepository:
     def lista_usuarios(self):
         return self.session.query(Usuario).all()
     
-    def pesquisar_empresa(self, email: str):
-        return self.session.query(Empresa).filter_by(email=email).first()
+    def pesquisar_empresa(self, cnpj: str):
+        return self.session.query(Empresa).filter_by(cnpj = cnpj).first()

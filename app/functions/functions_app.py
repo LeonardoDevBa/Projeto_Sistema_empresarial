@@ -152,5 +152,3 @@ def verificando_cadastro_empresa():
         else:
             print("Empresa não encontrada. Tente novamente.")
     return empresa
-
-

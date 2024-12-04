@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, Float, String, DateTime,ForeignKey
+from sqlalchemy import Column, Integer, String, DateTime,ForeignKey
 from sqlalchemy.orm import declarative_base, relationship
 from config.database import db
 
@@ -35,17 +35,11 @@ class Usuario(Base):
 
     empresa = relationship("Empresa", back_populates="usuarios")
 
-    def __init__(self, cpf:str, nome: str,sobrenome: str, idade:int, email:str, senha:str, admissao:DateTime, altura:float, peso:float):
+    def __init__(self, cpf:str, nome: str,sobrenome: str, idade:int, email:str, admissao:DateTime,rg: str ):
         self.cpf = cpf
         self.nome = nome
         self.sobrenome = sobrenome
         self.idade = idade
         self.email = email
-        self.senha = senha
         self.admissao = admissao
-        self.altura = altura 
-        self.peso = peso2
-
-Base.metadata.drop_all(bind=db)
-Base.metadata.create_all(bind=db)
-
+        self.rg = rg    
