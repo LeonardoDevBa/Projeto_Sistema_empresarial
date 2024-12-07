@@ -32,7 +32,7 @@ class UsuarioService:
             print(f"Ocorreu um erro inesperado: {erro}")
             sleep(3)
 
-    def criando_usuario(self, cpf: str, nome: str, sobrenome: str, idade: int, email: str, admissao: datetime, rg: str):
+    def criando_usuario(self, cpf: str, nome: str, sobrenome: str, idade: int, email: str, admissao: datetime, rg: str, empresa_cnpj = str):
         try:
             if len(cpf) != 11 or not cpf.isdigit():
                 print("CPF inválido!")
@@ -41,7 +41,7 @@ class UsuarioService:
 
             usuario = Usuario(
                 cpf=cpf, nome=nome, sobrenome=sobrenome, idade=idade,
-                email=email, admissao=admissao, rg = rg
+                email=email, admissao=admissao, rg = rg, empresa_cnpj = empresa_cnpj
             )
             usuario_cadastrado = self.repository.pesquisar_usuario(usuario.cpf)
 

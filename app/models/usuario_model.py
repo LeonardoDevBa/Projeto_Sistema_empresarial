@@ -35,11 +35,11 @@ class Usuario(Base):
 
     empresa = relationship("Empresa", back_populates="usuarios")
 
-    def __init__(self, cpf:str, nome: str,sobrenome: str, idade:int, email:str, admissao:DateTime,rg: str ):
+    def __init__(self, cpf:str, nome: str,sobrenome: str, idade:int, email:str, admissao:DateTime,rg: str):
         self.cpf = cpf
         self.nome = nome
         self.sobrenome = sobrenome
         self.idade = idade
         self.email = email
         self.admissao = admissao
-        self.rg = rg    
+        self.rg = rg
